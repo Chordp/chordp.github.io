@@ -159,7 +159,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/10/12/%E5%85%B3%E4%BA%8E%E6%8B%BC%E5%A4%9A%E5%A4%9A%E5%8F%8D%E7%88%AC%E5%8A%A0%E5%AF%86%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B/" class="post-title-link" itemprop="url">关于拼多多反爬加密的那些事</a>
+            <a href="/2020/10/12/%E5%85%B3%E4%BA%8E%E6%8B%BC%E5%A4%9A%E5%A4%9A%E5%8F%8D%E7%88%AC%E5%8A%A0%E5%AF%86%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B/" class="post-title-link" itemprop="url">关于拼多多反爬加密的那些事 (一)</a>
         </h2>
 
         <div class="post-meta">
@@ -168,8 +168,9 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2020-10-12 13:16:09" itemprop="dateCreated datePublished" datetime="2020-10-12T13:16:09+08:00">2020-10-12</time>
+              <time title="创建时间：2020-10-12 13:16:09 / 修改时间：17:31:05" itemprop="dateCreated datePublished" datetime="2020-10-12T13:16:09+08:00">2020-10-12</time>
             </span>
 
           
@@ -183,7 +184,28 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          
+          <h3 id="前景提要"><a href="#前景提要" class="headerlink" title="前景提要"></a>前景提要</h3><hr>
+<ul>
+<li>因为一些项目原因需要实现拼多多的登录商品列表爬取等功能</li>
+<li>使用工具 <strong>Fiddler 4</strong> <strong>VsCode</strong> <strong>Microsoft Edge</strong></li>
+<li>目标网址 <a target="_blank" rel="noopener" href="http://yangkeduo.com/">拼多多</a></li>
+</ul>
+<h3 id="1-抓包"><a href="#1-抓包" class="headerlink" title="1.抓包"></a>1.抓包</h3><hr>
+<p>打开FD 因为我们现在目标是爬取商品列表 所以我们下拉网页试着抓到下发商品的包<br><img src="https://chordp.coding.net/p/hexo/d/blog/git/raw/master/216559b3d75ff9a77661b1f80edf7bf9c78d16c3f68e20ec3054661ece1f0804.png" alt="1"></p>
+<p>是个<strong>Get</strong>包 参数中的 <strong>antiContent</strong> 这是我们今天这贴的目标</p>
+<h3 id="调试"><a href="#调试" class="headerlink" title="调试"></a>调试</h3><h4 id="Xhr断点"><a href="#Xhr断点" class="headerlink" title="Xhr断点"></a>Xhr断点</h4><hr>
+<p>xhr：XMLHttpRequest<br>通过监听 xhr 的断点，可以轻而易举的找到事件的触发点和调用堆栈<br>请求链接:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;yangkeduo.com&#x2F;proxy&#x2F;api&#x2F;api&#x2F;alexa&#x2F;goods&#x2F;hub?pdduid&#x3D;0&amp;page_sn&#x3D;10002&amp;list_update_time&#x3D;true&amp;platform&#x3D;1&amp;assist_allowed&#x3D;1&amp;hs_version&#x3D;2&amp;wrt_type&#x3D;1&amp;page&#x3D;4&amp;size&#x3D;20&amp;list_id&#x3D;zk7b2ll6l4&amp;antiContent&#x3D;0aoAfxnUmyIgYgdonRlwlh6adOswBTTVwp5WHNiOQpTKZvnEO1ZCuwpjPNfuHy-ubnck2Prt75xGF3r3g8T6CSZi2iPAQgHAQgQrlDn2Lz68GqXDNLhqDabXxnf9lTs847qCXG1goSMnhPnmChbgWUPiTzePMr5MogMwodsiS89s45HWXDbkoGWmW31TS6rK40KBGqNwl6Z6ooZ0n3R2g1BPR2fXtuoNpxsgVkz5S-gx7AD1fE7vw8vMdzy5rKkv2yd57R1o3M1oCY_iO5pvoPqsQd_Nhp5ItuWmfYXAHOwdA_IZ5GqYhb9VfnX0ItV9M4ef2szcYGVgH9OgScD-1eII-6Kc-hDlcWlQmy_uula6umxG9bGfXt5GC0mfHlgcTPqhVkgeZ2Y8qerwyvvqFz6iLkoM23mP3n9_Vsq0LsgKZnrY2xAUYPrDz7qlgUrVmH1t8WZnXxl0OFc-j-1ItJasfkba1kzcmPjr5ow6Ag8JYGVVZYDsZH8uN1Oiazza9Q2kZPEe4cHBSjqSv9m_yeFdquvjADHSuWqah6eIcjoWbIBir-B9adxlxoWbnhe97mDkAJ3kDLRltyjcJL2Z8F0LGMOjSn2j6pIVZFoNkpJRNdFXcJ25hUgrPlrxDv17BOgZAckc3YOKDieLQ6djlZhIRrse2Bz4C</span><br></pre></td></tr></table></figure>
+<p>我们直接复制 请求链接 中的一部分</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">api&#x2F;alexa&#x2F;goods&#x2F;</span><br></pre></td></tr></table></figure>
+<p>F12 源代码<br><img src="https://chordp.coding.net/p/hexo/d/blog/git/raw/master/f9f8190e68a6e0edebfba34b794e797dcd7b3a15c6e80e08698402e61f082c12.png" alt="图 3"><br>下拉网页 触发请求<br>这里我们断下来了<br> <img src="https://chordp.coding.net/p/hexo/d/blog/git/raw/master/bf5a970d9f21bcd934d3e10144125ad71356e77ff57389ce28c95ea45b49072b.png" alt="图 6">  </p>
+<h4 id="调用回溯"><a href="#调用回溯" class="headerlink" title="调用回溯"></a>调用回溯</h4><hr>
+<p>我们查看调用堆栈,我们选择一个只有一个参数的函数 这样比较好调试<br><img src="https://chordp.coding.net/p/hexo/d/blog/git/raw/master/ebae67564b58340afca465485a84940cca2304674cc885e085d257694293cbc4.png" alt="图 5">  </p>
+<p>最终我选择了这里<br><img src="https://chordp.coding.net/p/hexo/d/blog/git/raw/master/853f43fb39a2d537fd0368d185a37282be8bc33797be2aa72f3b9daef6ca4b49.png" alt="图 7">  </p>
+<p>我们在这下断,关闭xhr断点 放行 试着下拉网页能不能触发我们刚下的断点<br>第一次断下 并没有我们想要的东西 我们f8 放行试试<br><img src="https://chordp.coding.net/p/hexo/d/blog/git/raw/master/6ecbc70421419ff07d9eaf94c2911a2543158198353a83bf0e9052c5dfb42a84.png" alt="图 8">  </p>
+<p>放行到第五次出现了我们想要的<br><img src="https://chordp.coding.net/p/hexo/d/blog/git/raw/master/94c4637bfed666ce0e3110019aab57730b25b71975cd6abfb4634e0987d8d4b7.png" alt="图 9"><br>继续放行,直到网页不再断下(这里我们可以直接暂时取消所有断点 CTRL+f8 下一步记得恢复)<br>我们再次下拉网页 触发断点</p>
+<p>上一次第五次出现了我们想要的 那么他必然会经过这里 这次我们放行四次 然后单步调试<br>途径每一个可疑函数都在控制台执行一下<br><img src="https://chordp.coding.net/p/hexo/d/blog/git/raw/master/b652588b850d879097db496ea01dadd8eb60958cfd28d4d945fffcadd37706b8.png" alt="图 11"><br><img src="https://chordp.coding.net/p/hexo/d/blog/git/raw/master/5004b16927b0a9f133a01ff15339f2e0fb6f0fceaefc4ff090a9c9c1116aa011.png" alt="图 12"><br>最终我们追出Ee()<br><img src="https://chordp.coding.net/p/hexo/d/blog/git/raw/master/007ed1b91702ee019080f61c925c0d1605d2ee922dc911b7cb374255efce230e.png" alt="图 13">  </p>
+
       
     </div>
 
@@ -331,6 +353,10 @@
           <span class="site-state-item-count">2</span>
           <span class="site-state-item-name">日志</span>
         </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">标签</span>
       </div>
   </nav>
 </div>
