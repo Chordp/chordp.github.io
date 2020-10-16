@@ -20,12 +20,12 @@
     var CONFIG = {"hostname":"chordpx.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="前景提要  因为一些项目原因需要实现拼多多的登录商品列表爬取等功能 使用工具 Fiddler 4 VsCode Microsoft Edge 目标网址 拼多多  1.抓包 打开FD 因为我们现在目标是爬取商品列表 所以我们下拉网页试着抓到下发商品的包 是个Get包 参数中的 antiContent 这是我们今天这贴的目标 调试Xhr断点 xhr：XMLHttpRequest通过监听 xhr 的断点">
+  <meta name="description" content="前景提要  因为一些项目原因需要实现拼多多的登录商品列表爬取等功能 使用工具 Fiddler 4 VsCode Microsoft Edge 目标网址 拼多多">
 <meta property="og:type" content="article">
 <meta property="og:title" content="关于拼多多反爬加密的那些事 (一)">
 <meta property="og:url" content="http://chordpx.github.io/2020/10/12/%E5%85%B3%E4%BA%8E%E6%8B%BC%E5%A4%9A%E5%A4%9A%E5%8F%8D%E7%88%AC%E5%8A%A0%E5%AF%86%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B%20(%E4%B8%80)/index.html">
 <meta property="og:site_name" content="Chord的安全小屋">
-<meta property="og:description" content="前景提要  因为一些项目原因需要实现拼多多的登录商品列表爬取等功能 使用工具 Fiddler 4 VsCode Microsoft Edge 目标网址 拼多多  1.抓包 打开FD 因为我们现在目标是爬取商品列表 所以我们下拉网页试着抓到下发商品的包 是个Get包 参数中的 antiContent 这是我们今天这贴的目标 调试Xhr断点 xhr：XMLHttpRequest通过监听 xhr 的断点">
+<meta property="og:description" content="前景提要  因为一些项目原因需要实现拼多多的登录商品列表爬取等功能 使用工具 Fiddler 4 VsCode Microsoft Edge 目标网址 拼多多">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://chordp.coding.net/p/hexo/d/blog/git/raw/master/216559b3d75ff9a77661b1f80edf7bf9c78d16c3f68e20ec3054661ece1f0804.png">
 <meta property="og:image" content="https://chordp.coding.net/p/hexo/d/blog/git/raw/master/f9f8190e68a6e0edebfba34b794e797dcd7b3a15c6e80e08698402e61f082c12.png">
@@ -38,7 +38,7 @@
 <meta property="og:image" content="https://chordp.coding.net/p/hexo/d/blog/git/raw/master/5004b16927b0a9f133a01ff15339f2e0fb6f0fceaefc4ff090a9c9c1116aa011.png">
 <meta property="og:image" content="https://chordp.coding.net/p/hexo/d/blog/git/raw/master/007ed1b91702ee019080f61c925c0d1605d2ee922dc911b7cb374255efce230e.png">
 <meta property="article:published_time" content="2020-10-12T05:16:09.000Z">
-<meta property="article:modified_time" content="2020-10-12T09:31:05.267Z">
+<meta property="article:modified_time" content="2020-10-16T05:51:29.549Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="爬虫 Javascript逆向 拼多多 网页协议">
 <meta name="twitter:card" content="summary">
@@ -184,10 +184,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2020-10-12 13:16:09 / 修改时间：17:31:05" itemprop="dateCreated datePublished" datetime="2020-10-12T13:16:09+08:00">2020-10-12</time>
+              <time title="创建时间：2020-10-12 13:16:09" itemprop="dateCreated datePublished" datetime="2020-10-12T13:16:09+08:00">2020-10-12</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-10-16 13:51:29" itemprop="dateModified" datetime="2020-10-16T13:51:29+08:00">2020-10-16</time>
+              </span>
 
           
 
@@ -204,9 +210,10 @@
 <ul>
 <li>因为一些项目原因需要实现拼多多的登录商品列表爬取等功能</li>
 <li>使用工具 <strong>Fiddler 4</strong> <strong>VsCode</strong> <strong>Microsoft Edge</strong></li>
-<li>目标网址 <a target="_blank" rel="noopener" href="http://yangkeduo.com/">拼多多</a></li>
+<li>目标网址 <a target="_blank" rel="noopener" href="http://yangkeduo.com/">拼多多</a><a id="more"></a>
+<h3 id="1-抓包"><a href="#1-抓包" class="headerlink" title="1.抓包"></a>1.抓包</h3></li>
 </ul>
-<h3 id="1-抓包"><a href="#1-抓包" class="headerlink" title="1.抓包"></a>1.抓包</h3><hr>
+<hr>
 <p>打开FD 因为我们现在目标是爬取商品列表 所以我们下拉网页试着抓到下发商品的包<br><img src="https://chordp.coding.net/p/hexo/d/blog/git/raw/master/216559b3d75ff9a77661b1f80edf7bf9c78d16c3f68e20ec3054661ece1f0804.png" alt="1"></p>
 <p>是个<strong>Get</strong>包 参数中的 <strong>antiContent</strong> 这是我们今天这贴的目标</p>
 <h3 id="调试"><a href="#调试" class="headerlink" title="调试"></a>调试</h3><h4 id="Xhr断点"><a href="#Xhr断点" class="headerlink" title="Xhr断点"></a>Xhr断点</h4><hr>
@@ -242,7 +249,10 @@
     <a href="/2020/10/12/IDA%E7%89%B9%E5%BE%81%E7%A0%81%E7%94%9F%E6%88%90%E5%B0%8F%E6%8F%92%E4%BB%B6/" rel="prev" title="IDA特征码生成小插件">
       <i class="fa fa-chevron-left"></i> IDA特征码生成小插件
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2020/10/14/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8LLVM%E7%BC%96%E8%AF%91Windows%E9%A9%B1%E5%8A%A8-%E6%B7%B7%E6%B7%86-Asm/" rel="next" title="如何使用LLVM编译Windows驱动(混淆&Asm)">
+      如何使用LLVM编译Windows驱动(混淆&Asm) <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -315,7 +325,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">2</span>
+          <span class="site-state-item-count">3</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
