@@ -20,28 +20,36 @@
     var CONFIG = {"hostname":"chordpx.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Chord的安全小屋">
-<meta property="og:url" content="http://chordpx.github.io/index.html">
+  <meta name="description" content="效果 例子 智能判断一些东西  这里以ObjManager为例子    快捷键 x查找引用  找到代码引用地址  使用 PatternGen 生成特征码 1234567tp3:005297B4                 mov     ecx, ds:ObjManager.tp3:005297BA                 call    sub_6A3FA0.tp3:005297BF">
+<meta property="og:type" content="article">
+<meta property="og:title" content="和特征码插件配套的IDA搜索脚本以及使用技巧">
+<meta property="og:url" content="http://chordpx.github.io/2020/10/18/%E5%92%8C%E7%89%B9%E5%BE%81%E7%A0%81%E6%8F%92%E4%BB%B6%E9%85%8D%E5%A5%97%E7%9A%84IDA%E8%84%9A%E6%9C%AC/index.html">
 <meta property="og:site_name" content="Chord的安全小屋">
+<meta property="og:description" content="效果 例子 智能判断一些东西  这里以ObjManager为例子    快捷键 x查找引用  找到代码引用地址  使用 PatternGen 生成特征码 1234567tp3:005297B4                 mov     ecx, ds:ObjManager.tp3:005297BA                 call    sub_6A3FA0.tp3:005297BF">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://chordp.coding.net/p/hexo/d/blog/git/raw/master/333.gif">
+<meta property="og:image" content="https://chordp.coding.net/p/hexo/d/blog/git/raw/master/08225816276284724a568a76c22f6489dcd57f8cc8c55a2161702e9b8a70a4f1.png">
+<meta property="article:published_time" content="2020-10-18T08:43:12.000Z">
+<meta property="article:modified_time" content="2020-10-18T08:53:58.643Z">
 <meta property="article:author" content="John Doe">
+<meta property="article:tag" content="IDA">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://chordp.coding.net/p/hexo/d/blog/git/raw/master/333.gif">
 
-<link rel="canonical" href="http://chordpx.github.io/">
+<link rel="canonical" href="http://chordpx.github.io/2020/10/18/%E5%92%8C%E7%89%B9%E5%BE%81%E7%A0%81%E6%8F%92%E4%BB%B6%E9%85%8D%E5%A5%97%E7%9A%84IDA%E8%84%9A%E6%9C%AC/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : true,
-    isPost : false,
+    isHome : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>Chord的安全小屋</title>
+  <title>和特征码插件配套的IDA搜索脚本以及使用技巧 | Chord的安全小屋</title>
   
 
 
@@ -139,9 +147,10 @@
         <div class="content-wrap">
           
 
-          <div class="content index posts-expand">
+          <div class="content post posts-expand">
             
-      
+
+    
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
@@ -157,10 +166,9 @@
       <meta itemprop="name" content="Chord的安全小屋">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/10/18/%E5%92%8C%E7%89%B9%E5%BE%81%E7%A0%81%E6%8F%92%E4%BB%B6%E9%85%8D%E5%A5%97%E7%9A%84IDA%E8%84%9A%E6%9C%AC/" class="post-title-link" itemprop="url">和特征码插件配套的IDA搜索脚本以及使用技巧</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          和特征码插件配套的IDA搜索脚本以及使用技巧
+        </h1>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -184,7 +192,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h4 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h4><p><img src="https://chordp.coding.net/p/hexo/d/blog/git/raw/master/333.gif" alt="图片1"></p>
+        <h4 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h4><p><img src="https://chordp.coding.net/p/hexo/d/blog/git/raw/master/333.gif" alt="图片1"></p>
 <h4 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h4><ul>
 <li><p>智能判断一些东西</p>
 </li>
@@ -208,247 +216,33 @@
 </li>
 </ul>
 <h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br></pre></td><td class="code"><pre><span class="line"># coding&#x3D;utf-8</span><br><span class="line">from idautils import XrefsTo</span><br><span class="line">from idc import BADADDR, INF_BASEADDR, SEARCH_DOWN, FUNCATTR_START, FUNCATTR_END</span><br><span class="line">import idc</span><br><span class="line">import idaapi</span><br><span class="line">import datetime</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def MakeEnum(enumName, offsetArray):</span><br><span class="line">    print (&quot;enum class %s\r\n&#123;&quot; % enumName)</span><br><span class="line">    for offset in offsetArray:</span><br><span class="line">        if len(offset[0]) &#x3D;&#x3D; 0:</span><br><span class="line">            print (&quot;&quot;)</span><br><span class="line">            continue</span><br><span class="line">        if type(offset[1]) is str:</span><br><span class="line">            print (&quot;   %s &#x3D; %s,&quot; % (offset[0], offset[1]))</span><br><span class="line">            continue</span><br><span class="line"></span><br><span class="line">        &#39;&#39;&#39;</span><br><span class="line">		fncValue &#x3D; offset[1] if offset[1] !&#x3D; -1 else 0x0</span><br><span class="line">		&#39;&#39;&#39;</span><br><span class="line">        # print &quot;   %s &#x3D; 0x%08x,%s&quot; % (offset[0], fncValue, &#39; &#x2F;&#x2F; Unknown&#39; if fncValue &#x3D;&#x3D; 0x0 else &#39;&#39;)</span><br><span class="line"></span><br><span class="line">        fncValue &#x3D; offset[1] if offset[1] !&#x3D; -1 else 0x0</span><br><span class="line"></span><br><span class="line">        locByName &#x3D; idc.LocByName(offset[0])</span><br><span class="line">        isMismatch &#x3D; locByName !&#x3D; fncValue</span><br><span class="line"></span><br><span class="line">        if locByName &#x3D;&#x3D; BADADDR:</span><br><span class="line">            locByName &#x3D; fncValue</span><br><span class="line"></span><br><span class="line">        print (&quot;   %s &#x3D; 0x%08x,%s&quot; % (offset[0], locByName, &#39;&#x2F;&#x2F; Possible mismatch&#39; if isMismatch else &#39;&#39;))</span><br><span class="line"></span><br><span class="line">    print (&quot;&#125;;\r\n&quot;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def MakeNamespace(name, offsetArray):</span><br><span class="line">    # type: (object, object) -&gt; object</span><br><span class="line">    print (&quot;namespace %s \n&#123;&quot; % name)</span><br><span class="line">    for offset in offsetArray:</span><br><span class="line">        of &#x3D; 0</span><br><span class="line">        if offset[1] !&#x3D; 0:</span><br><span class="line">            of &#x3D; offset[1] - idaapi.get_imagebase()</span><br><span class="line">        print(&quot;\tconst auto %-20s &#x3D; 0x%X;\t&#x2F;&#x2F;0x%X&quot; % (offset[0], of, offset[1]))</span><br><span class="line">    print(&quot;&#125;;\r\n&quot;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def FindFunctionByPatternStartEA(pattern):</span><br><span class="line">    address &#x3D; idc.FindBinary(0, SEARCH_DOWN, pattern)</span><br><span class="line">    if address &#x3D;&#x3D; BADADDR:</span><br><span class="line">        return BADADDR</span><br><span class="line"></span><br><span class="line">    try:</span><br><span class="line">        return idaapi.get_func(address).startEA</span><br><span class="line">    except Exception:</span><br><span class="line">        return -1</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def FindOffsetValue(pattern, offset&#x3D;0):</span><br><span class="line">    if pattern &#x3D;&#x3D; &#39;&#39;:</span><br><span class="line">        return 0</span><br><span class="line">    try:</span><br><span class="line">        address &#x3D; idc.FindBinary(0, SEARCH_DOWN, pattern) + offset</span><br><span class="line">        op1 &#x3D; idc.GetOpType(address, 0)</span><br><span class="line">        op2 &#x3D; idc.GetOpType(address, 1)</span><br><span class="line"></span><br><span class="line">        if idc.Byte(address) &#x3D;&#x3D; 0xE8:</span><br><span class="line">            if op1 &#x3D;&#x3D; idc.o_near and op2 &#x3D;&#x3D; idc.o_void:</span><br><span class="line">                return idc.GetOperandValue(address, 0)</span><br><span class="line">        elif op1 &#x3D;&#x3D; idc.o_reg and (op2 &#x3D;&#x3D; idc.o_mem or op2 &#x3D;&#x3D; idc.o_imm) and idc.Byte(address) !&#x3D; 0x83:</span><br><span class="line">            return idc.GetOperandValue(address, 1)</span><br><span class="line">        elif (op1 &#x3D;&#x3D; idc.o_mem or op1 &#x3D;&#x3D; idc.o_imm) and op2 &#x3D;&#x3D; idc.o_reg and idc.Byte(address) !&#x3D; 0x83:</span><br><span class="line">            return idc.GetOperandValue(address, 0)</span><br><span class="line">        else:</span><br><span class="line">            return idaapi.get_func(address).startEA</span><br><span class="line"></span><br><span class="line">    except Exception:</span><br><span class="line">        return 0</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def GetStr(ea):</span><br><span class="line">    Version &#x3D; &quot;&quot;</span><br><span class="line">    i &#x3D; 0</span><br><span class="line">    while True:</span><br><span class="line">        bt &#x3D; idc.Byte(ea + i)</span><br><span class="line">        i &#x3D; i + 1</span><br><span class="line">        if bt !&#x3D; 0:</span><br><span class="line">            Version &#x3D; Version + chr(bt)</span><br><span class="line">        else:</span><br><span class="line">            return Version</span><br><span class="line"># oObjChampionName-&gt;A1 ? ? ? ? 05 ? ? ? ? 5B</span><br><span class="line"># #define oObjAttackRange 0x1484	&#x2F;&#x2F;D8 81 ? ? ? ? 8B 81 ? ? ? ?</span><br><span class="line">def main():</span><br><span class="line">    print(&quot;&#x2F;&#x2F;[*] League of Legends Client Update Tool&quot;)</span><br><span class="line">    print(&quot;&#x2F;&#x2F;[*] By Chord&quot;)</span><br><span class="line">    print(&quot;&#x2F;&#x2F;[*] Started at: %s&quot; % datetime.datetime.now())</span><br><span class="line">    print(&quot;&#x2F;&#x2F;----------------------------&quot;)</span><br><span class="line"></span><br><span class="line">    MakeNamespace(&#39;GameClass&#39;, [</span><br><span class="line">        [&quot;GameTime&quot;, FindOffsetValue(&#39;F3 0F 11 05 ? ? ? ? 8B 49&#39;)],</span><br><span class="line">        # [&quot;BuildVersion&quot;, FindOffsetValue(&#39;8B 44 24 04 BA ? ? ? ? 2B D0&#39;, 4)],</span><br><span class="line">        [&quot;ObjManager&quot;, FindOffsetValue(&#39;8B 0D ? ? ? ? E8 ? ? ? ? FF 77&#39;)],</span><br><span class="line">        [&quot;LocalPlayer&quot;, FindOffsetValue(&#39;A1 ?? ?? ?? ?? 85 C0 74 07 05 ?? ?? ?? ?? EB 02 33 C0 56&#39;)],</span><br><span class="line">        [&quot;ChatClient&quot;, FindOffsetValue(&#39;8B ?? ?? ?? ?? ?? 6A ?? 50 E8 ?? ?? ?? ?? 33 C0 5F C2&#39;)],</span><br><span class="line">        [&quot;MenuGuiIns&quot;, FindOffsetValue(&#39;8B 0D ? ? ? ? 6A 00 E8 ? ? ? ? C7&#39;)],</span><br><span class="line">        [&quot;HudInstance&quot;, FindOffsetValue(&#39;A1 ? ? ? ? 83 78 08 02 0F 94 C0&#39;)],</span><br><span class="line">        [&quot;PingInstance&quot;, FindOffsetValue(&#39;8B 0D ? ? ? ? 85 C9 74 07 8B 01 6A 01 FF 50 08 8B&#39;)],</span><br><span class="line">    ])</span><br><span class="line">    MakeNamespace(&#39;Function&#39;, [</span><br><span class="line">        [&quot;GetPing&quot;, FindOffsetValue(&#39;E8 ? ? ? ? 8B 44 24 1C 83 C4 0C 8B CE&#39;)],</span><br><span class="line">        [&quot;IsAlive&quot;, FindOffsetValue(&#39;56 8B F1 8B 06 8B 80 ? ? ? ? FF D0 84 C0 74 19&#39;)],</span><br><span class="line">        [&quot;IsMissile&quot;, FindOffsetValue(&#39;E8 ?? ?? ?? ?? 83 C4 04 84 C0 74 60&#39;)],</span><br><span class="line">        [&quot;IsTargetable&quot;, FindOffsetValue(&#39;E8 ? ? ? ? 8B F8 8B CB 89 &#39;)],</span><br><span class="line">        [&quot;IssueOrder&quot;, FindOffsetValue(&#39;E8 ?? ?? ?? ?? 89 ?? ?? ?? ?? ?? 8B 84 ?? ?? ?? ?? ?? 8B CF F3 0F 7E 00&#39;)],</span><br><span class="line">        [&quot;GetFirstObj&quot;, FindOffsetValue(&#39;8B 41 14 8B 51 18&#39;)],</span><br><span class="line">        [&quot;GetNextObj&quot;, FindOffsetValue(&#39;E8 ? ? ? ? 8B F0 85 F6 75 E4&#39;)],</span><br><span class="line">        [&quot;GetSpellState&quot;, FindOffsetValue(&#39;E8 ? ? ? ? 8B F8 8B CB 89&#39;)],</span><br><span class="line">        [&quot;SendChat&quot;, FindOffsetValue(&#39;E8 ? ? ? ? 8D 4C 24 04 C6&#39;)],</span><br><span class="line">        [&quot;PrintChat&quot;, FindOffsetValue(&#39;E8 ? ? ? ? 33 C0 5F C2&#39;)],</span><br><span class="line">        [&quot;GetHpBarPos&quot;, FindOffsetValue(&#39;E8 ?? ?? ?? ?? 8B 4E ?? 8D 54 ?? ?? 52 8B 01 FF ?? ?? 5E 83 ?? ?? C3&#39;)],</span><br><span class="line">        [&quot;GetAiManager&quot;, FindOffsetValue(&#39;E8 ?? ?? ?? ?? 50 8B CE E8 ?? ?? ?? ?? 80 BB ?? ?? ?? ?? ??&#39;)],</span><br><span class="line">        [&quot;WorldToScreen&quot;, FindOffsetValue(&#39;83 EC 10 56 E8 ? ? ? ? 8B 08&#39;)],</span><br><span class="line">        [&quot;BaseDrawPosition&quot;, FindOffsetValue(&#39;E8 ?? ?? ?? ?? EB ?? 8B 01 8B 40&#39;)],</span><br><span class="line">        [&quot;GetAttackDelay&quot;, FindOffsetValue(&#39;E8 ? ? ? ? 8B 44 24 1C 83 C4 0C 8B CE &#39;)],</span><br><span class="line">        [&quot;GetAttackCastDelay&quot;, FindOffsetValue(&#39;E8 ?? ?? ?? ?? D9 ?? ?? ?? ?? ?? 56 E8&#39;)],</span><br><span class="line">        [&quot;SetBaseCharacterData&quot;, FindOffsetValue(&#39;E8 ?? ?? ?? ?? 8B 54 ?? ?? 83 ?? ?? 72 ?? 8B 4C ?? ?? 42 8B C1 81 ?? ?? ?? ?? ?? 72 ?? 8B 49 ?? 83 ?? ?? 2B C1 83 ?? ?? 83 ?? ?? 0F ?? ?? ?? ?? ?? 52 51 E8 ?? ?? ?? ?? 83 ?? ?? 8B 06 8B CE FF ?? ?? ?? ?? ?? 8B CE F3 0F&#39;)],</span><br><span class="line">        [&quot;OnCreateObject&quot;, FindOffsetValue(&#39;E8 ?? ?? ?? ?? E8 ?? ?? ?? ?? 84 C0 74 ?? 32 C9 EB&#39;)],</span><br><span class="line">        [&quot;OnDeleteObject&quot;, FindOffsetValue(&#39;E8 ?? ?? ?? ?? 57 E8 ?? ?? ?? ?? 83 ?? ?? 5F 5E C3&#39;)],</span><br><span class="line">        [&quot;OnProcessSpell&quot;, FindOffsetValue(&#39;E8 ?? ?? ?? ?? 8B CE E8 ?? ?? ?? ?? 80 BE ?? ?? ?? ?? ?? D8&#39;)],</span><br><span class="line">    ])</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if __name__ &#x3D;&#x3D; &#39;__main__&#39;:</span><br><span class="line">    main()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-      
     </div>
 
     
     
     
+
       <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
+          <div class="post-tags">
+              <a href="/tags/IDA/" rel="tag"># IDA</a>
+          </div>
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://chordpx.github.io/2020/10/14/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8LLVM%E7%BC%96%E8%AF%91Windows%E9%A9%B1%E5%8A%A8-%E6%B7%B7%E6%B7%86-Asm/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Chord的安全小屋">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/10/14/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8LLVM%E7%BC%96%E8%AF%91Windows%E9%A9%B1%E5%8A%A8-%E6%B7%B7%E6%B7%86-Asm/" class="post-title-link" itemprop="url">如何使用LLVM编译Windows驱动(混淆&Asm)</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-10-14 15:10:47" itemprop="dateCreated datePublished" datetime="2020-10-14T15:10:47+08:00">2020-10-14</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-10-16 21:06:30" itemprop="dateModified" datetime="2020-10-16T21:06:30+08:00">2020-10-16</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><hr>
-<blockquote>
-<p>总所周知 世界上最好的IDE <strong>Viusal studio</strong> 所用的msvc编译器无法使用x64的内联汇编<br>当然我们可以选择intel 的编译器 这里我们提供一个选择<br>llvm对vs兼容性没有 intel 编译器好 但是他还有个功能是intel没有的 就是混淆</p>
-</blockquote>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/10/14/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8LLVM%E7%BC%96%E8%AF%91Windows%E9%A9%B1%E5%8A%A8-%E6%B7%B7%E6%B7%86-Asm/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
         
-      
-    </div>
 
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://chordpx.github.io/2020/10/12/%E5%85%B3%E4%BA%8E%E6%8B%BC%E5%A4%9A%E5%A4%9A%E5%8F%8D%E7%88%AC%E5%8A%A0%E5%AF%86%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B%20(%E4%B8%80)/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Chord的安全小屋">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/10/12/%E5%85%B3%E4%BA%8E%E6%8B%BC%E5%A4%9A%E5%A4%9A%E5%8F%8D%E7%88%AC%E5%8A%A0%E5%AF%86%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B%20(%E4%B8%80)/" class="post-title-link" itemprop="url">关于拼多多反爬加密的那些事 (一)</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-10-12 13:16:09" itemprop="dateCreated datePublished" datetime="2020-10-12T13:16:09+08:00">2020-10-12</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-10-16 13:51:29" itemprop="dateModified" datetime="2020-10-16T13:51:29+08:00">2020-10-16</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="前景提要"><a href="#前景提要" class="headerlink" title="前景提要"></a>前景提要</h3><hr>
-<ul>
-<li>因为一些项目原因需要实现拼多多的登录商品列表爬取等功能</li>
-<li>使用工具 <strong>Fiddler 4</strong> <strong>VsCode</strong> <strong>Microsoft Edge</strong></li>
-<li>目标网址 <a target="_blank" rel="noopener" href="http://yangkeduo.com/">拼多多</a>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/10/12/%E5%85%B3%E4%BA%8E%E6%8B%BC%E5%A4%9A%E5%A4%9A%E5%8F%8D%E7%88%AC%E5%8A%A0%E5%AF%86%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B%20(%E4%B8%80)/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
         
-      
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/10/14/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8LLVM%E7%BC%96%E8%AF%91Windows%E9%A9%B1%E5%8A%A8-%E6%B7%B7%E6%B7%86-Asm/" rel="prev" title="如何使用LLVM编译Windows驱动(混淆&Asm)">
+      <i class="fa fa-chevron-left"></i> 如何使用LLVM编译Windows驱动(混淆&Asm)
+    </a></div>
+      <div class="post-nav-item"></div>
     </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
       </footer>
+    
   </article>
   
   
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://chordpx.github.io/2020/10/12/IDA%E7%89%B9%E5%BE%81%E7%A0%81%E7%94%9F%E6%88%90%E5%B0%8F%E6%8F%92%E4%BB%B6/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Chord的安全小屋">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/10/12/IDA%E7%89%B9%E5%BE%81%E7%A0%81%E7%94%9F%E6%88%90%E5%B0%8F%E6%8F%92%E4%BB%B6/" class="post-title-link" itemprop="url">IDA特征码生成小插件</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-10-12 00:29:38" itemprop="dateCreated datePublished" datetime="2020-10-12T00:29:38+08:00">2020-10-12</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-10-16 13:52:06" itemprop="dateModified" datetime="2020-10-16T13:52:06+08:00">2020-10-16</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="PatternGen"><a href="#PatternGen" class="headerlink" title="PatternGen"></a>PatternGen</h1><p>项目地址:<a target="_blank" rel="noopener" href="https://github.com/Chordp/PatternGen">GitHub</a><br>这是用来快速生成适用于Ida搜索格式的IDA特征码插件 由Python2 编写 所以必须安装idapython才能使用</p>
-<blockquote>
-<p>将PatternGen.py 复制到ida plugins 目录下<br><br>快捷键 <strong>alt+z</strong><br></p>
-</blockquote>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/10/12/IDA%E7%89%B9%E5%BE%81%E7%A0%81%E7%94%9F%E6%88%90%E5%B0%8F%E6%8F%92%E4%BB%B6/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-
   
 
 
@@ -501,6 +295,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%88%E6%9E%9C"><span class="nav-number">1.</span> <span class="nav-text">效果</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BE%8B%E5%AD%90"><span class="nav-number">2.</span> <span class="nav-text">例子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81"><span class="nav-number">3.</span> <span class="nav-text">代码</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
